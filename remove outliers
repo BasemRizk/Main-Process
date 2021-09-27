@@ -1,0 +1,10 @@
+Using Z-Score
+from scipy import stats
+train[(np.abs(stats.zscore(train)) < 3).all(axis=1)]
+
+  IQR-Score
+Q1 = train.quantile(0.02)
+Q3 = train.quantile(0.98)
+IQR = Q3 - Q1
+train = train[~((train < (Q1 - 1.5 * IQR)) |(train > (Q3 + 1.5 * 
+IQR))).any(axis=1)]
