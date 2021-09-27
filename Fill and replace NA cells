@@ -1,0 +1,3 @@
+# replace all NA's the value that comes directly after it in the same column, 
+# then replace all the remaining na's with 0
+subset_nfl_data.fillna(method='bfill', axis=0).fillna(0)
