@@ -1,0 +1,2 @@
+df = df.reset_index() #reset the pivot table index
+df_unpivoted = df.melt(id_vars=['userId'], var_name='productId', value_name='Rating') #return the pivot table to the normal dataframe shape
