@@ -1,0 +1,12 @@
+from sklearn import preprocessing
+
+min_max_scaler = preprocessing.MinMaxScaler()
+np_scaled = min_max_scaler.fit_transform(df)
+df_normalized = pd.DataFrame(np_scaled, columns = cols)
+df_normalized
+
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler(copy=False)
+scaler.fit_transform(df['Feature 2'].values.reshape(-1, 1))
+scaler.fit_transform(df['Feature 4'].values.reshape(-1, 1))
