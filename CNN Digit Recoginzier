@@ -1,0 +1,86 @@
+#change the dataframe to nparray and reshape the input data
+X_train = X_train.reshape(X_train.shape[0], 28, 28, 1)
+X_test = X_test.reshape(X_test.shape[0], 28, 28, 1)
+
+# Now we have to check the count of values for our output layer
+y_train.value_counts(normalize=True)
+
+
+we must normalize our data as it is always required in neural network models
+we can achieve this by dividing the RGB codes with 255 (which is the maximum RGB code minus the minimum RGB code)
+normalize X_train and X_test
+make sure that the values are float so that we can get decimal points after division
+
+X_train = X_train.astype('float32')
+X_test = X_test.astype('float32')
+
+X_train /= 255
+X_test /= 255
+
+# OneHotEncoder to the train labels
+y_train = to_categorical(y_train, num_classes=10)
+
+print("Shape of y_train:", y_train.shape)
+print("One value of y_train:", y_train[0])
+
+
+####### define a sequential model
+add 2 convolutional layers
+no of filters: 32
+kernel size: 3x3
+activation: "relu"
+input shape: (28, 28, 1) for first layer
+flatten the data
+add Flatten later
+flatten layers flatten 2D arrays to 1D array before building the fully connected layers
+add 2 dense layers
+number of neurons in first layer: 128
+number of neurons in last layer: number of classes
+activation function in first layer: relu
+activation function in last layer: softmax
+we may experiment with any number of neurons for the first Dense layer; however, the final Dense layer must have neurons equal to the number of output classes
+
+########################################
+let's compile our model
+loss: "categorical_crossentropy"
+metrics: "accuracy"
+optimizer: "adam"
+then next step will be to fit model
+give train data - training features and labels
+batch size: 32
+epochs: 10
+give validation data - testing features and labels
+
+
+# Compile the model
+model.compile(loss="categorical_crossentropy", metrics=["accuracy"], optimizer="adam")
+​
+# Fit the model
+model.fit( x=X_train, y=y_train, batch_size=32, epochs=10, validation_split = 0.3)
+
+#### Vanilla CNN + Pooling + Dropout
+
+define a sequential model
+add 2 convolutional layers
+no of filters: 32
+kernel size: 3x3
+activation: "relu"
+input shape: (28, 28, 1) for first layer
+add a max pooling layer of size 2x2
+add a dropout layer
+dropout layers fight with the overfitting by disregarding some of the neurons while training
+use dropout rate 0.2
+flatten the data
+add Flatten later
+flatten layers flatten 2D arrays to 1D array before building the fully connected layers
+add 2 dense layers
+number of neurons in first layer: 128
+number of neurons in last layer: number of classes
+activation function in first layer: relu
+activation function in last layer: softmax
+we may experiment with any number of neurons for the first Dense layer; however, the final Dense layer must have neurons equal to the number of output classes
+
+
+#Predictions
+# Predict on Test set
+preds = np.argmax(model.predict(X_test), axis=1)
